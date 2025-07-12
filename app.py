@@ -6,8 +6,8 @@ def main():
         """
     <div style ="text-align: center;">
 
-    <h1>SQL Query Generator</h1>
-    <h3> Generates SQL queries for your data analysis needs </h3>
+    <h1>SQL Query Generator 📃🤖 </h1>
+    <h3> Generates SQL queries for your data analysis needs 📊</h3>
     <h4> With explanation for your understanding </h4>
 
     <p> This is a simple tool which will help in generating SQL queries based on your input prompts. </p>
@@ -15,5 +15,7 @@ def main():
     </div>
     """
     , unsafe_allow_html=True)
+    text_input = st.text_area("Enter your SQL Query here")
+    submit = st.button("Generate SQL Query")
 
 main()
