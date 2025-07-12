@@ -1,4 +1,19 @@
 import streamlit as st
 
 def main():
-    st.set
+    st.set_page_config(page_title = "SQL Query Generator", page_icon="📝")
+    st.markdown(
+        """
+    <div style ="text-align: center;">
+
+    <h1>SQL Query Generator</h1>
+    <h3> Generates SQL queries for your data analysis needs </h3>
+    <h4> With explanation for your understanding </h4>
+
+    <p> This is a simple tool which will help in generating SQL queries based on your input prompts. </p>
+
+    </div>
+    """
+    , unsafe_allow_html=True)
+
+main()
