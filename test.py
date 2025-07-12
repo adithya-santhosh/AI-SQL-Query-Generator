@@ -3,7 +3,7 @@ import google.generativeai as genai
 import os
 
 # Set your API key securely
-GOOGLE_API_KEY = "AIzaSyCvp_3TYWby9ZpS7YeEuzklrXe_0OEyNpw"  # Store your API key in an .env file or in Streamlit secrets
+GOOGLE_API_KEY = ""  # Store your API key in an .env file or in Streamlit secrets
 genai.configure(api_key=GOOGLE_API_KEY)
 
 # Load Gemini model
