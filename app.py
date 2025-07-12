@@ -1,4 +1,10 @@
 import streamlit as st
+import google.generativeai as genai
+
+GOOGLE_API_KEY = "AIzaSyCvp_3TYWby9ZpS7YeEuzklrXe_0OEyNpw"
+
+genai.configure(api_key = GOOGLE_API_KEY)
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 def main():
     st.set_page_config(page_title = "SQL Query Generator", page_icon="📝")
@@ -15,7 +21,14 @@ def main():
     </div>
     """
     , unsafe_allow_html=True)
-    text_input = st.text_area("Enter your SQL Query here")
-    submit = st.button("Generate SQL Query")
 
+    
+    text_input = st.text_area("Enter your SQL Query here")
+    
+    
+    submit = st.button("Generate SQL Query")
+    if submit:
+        response = model.generate_content(text_input)
+        print(response.text)
+        st.write(response.text)
 main()
