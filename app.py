@@ -4,7 +4,7 @@ import google.generativeai as genai
 GOOGLE_API_KEY = "AIzaSyCvp_3TYWby9ZpS7YeEuzklrXe_0OEyNpw"
 
 genai.configure(api_key = GOOGLE_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.5-pro")
 
 def main():
     st.set_page_config(page_title = "SQL Query Generator", page_icon="📝")
@@ -29,6 +29,6 @@ def main():
     submit = st.button("Generate SQL Query")
     if submit:
         response = model.generate_content(text_input)
-        print(response.text)
-        st.write(response.text)
+        print(response.candidates[0].content.parts[0].text.strip())
+        st.write(response.candidates[0].content.parts[0].text.strip())
 main()
