@@ -28,7 +28,54 @@ def main():
     
     submit = st.button("Generate SQL Query")
     if submit:
-        response = model.generate_content(text_input)
-        print(response.candidates[0].content.parts[0].text.strip())
-        st.write(response.candidates[0].content.parts[0].text.strip())
+        with st.spinner("Generating SQL..."):
+            template = """
+
+            Create a SQL query snipper using the following prompt.
+
+            ```
+            {text_input}
+
+            ```
+            I just want the sql query.
+            
+            """
+            formatted_template = template.format(text_input= text_input)
+            
+            # st.write(formatted_template)
+            response = model.generate_content(formatted_template)
+            sql_query = response.candidates[0].content.parts[0].text.strip()   
+            st.write(sql_query)
+
+
+            expected_template = """
+
+            What would be the expected response of this sql query snippet:
+
+            ```
+            {sql_query}
+
+            ```
+            Provide the sample tabular response with no explanation.
+            
+            """
+            expected_template_formatted = expected_template.format(sql_query=sql_query)
+            eoutput = model.generate_content(expected_template_formatted)
+            expected_table  = eoutput.candidates[0].content.parts[0].text.strip()
+            st.write(expected_table)
+
+
+            explanation_template = """
+            Explain the SQl snipped provided below:
+           
+             ```
+            {sql_query}
+            ```
+
+            Provide the explanation in a simple and easy to understand manner.
+"""
+            explanation_template_formatted = explanation_template.format(sql_query=sql_query)
+            explanation_output = model.generate_content(explanation_template_formatted)
+            explanation = explanation_output.candidates[0].content.parts[0].text.strip()
+            st.write(explanation)
 main()
