@@ -45,7 +45,7 @@ def main():
             # st.write(formatted_template)
             response = model.generate_content(formatted_template)
             sql_query = response.candidates[0].content.parts[0].text.strip()   
-            st.write(sql_query)
+            sql_query = sql_query.replace("```sql", "").replace("```", "").strip()
 
 
             expected_template = """
@@ -62,7 +62,7 @@ def main():
             expected_template_formatted = expected_template.format(sql_query=sql_query)
             eoutput = model.generate_content(expected_template_formatted)
             expected_table  = eoutput.candidates[0].content.parts[0].text.strip()
-            st.write(expected_table)
+            #st.write(expected_table)
 
 
             explanation_template = """
@@ -72,10 +72,19 @@ def main():
             {sql_query}
             ```
 
-            Provide the explanation in a simple and easy to understand manner.
+            Provide the simplest of explanations.
 """
             explanation_template_formatted = explanation_template.format(sql_query=sql_query)
             explanation_output = model.generate_content(explanation_template_formatted)
             explanation = explanation_output.candidates[0].content.parts[0].text.strip()
-            st.write(explanation)
+            #st.write(explanation)
+            with st.container():
+                st.success("SQL Query Generated Successfully!")
+                st.code(sql_query, language='sql')
+
+                st.success("Expected Output for this SQL Query")
+                st.markdown(expected_table)
+
+                st.success("Explanation of the SQL Query")
+                st.markdown(explanation)
 main()
